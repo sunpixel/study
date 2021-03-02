@@ -1,0 +1,114 @@
+import random
+
+
+def number(x, y, z):
+    playing = 1
+    n = x
+    for i in n:
+        if n in alphabit:
+            print('Not a number')
+        else:
+            while playing:
+                n = int(n)
+                if n != 0:
+                    if z == n:
+                        playing = 0
+                        y += 1
+                        return y
+                    elif z > n:
+                        print('Low')
+                        y += 1
+                        n = 0
+                    elif z < n:
+                        print('High')
+                        y += 1
+                        n = 0
+                else:
+                    print('Enter new variable:')
+                    n = str(input())
+
+
+def game(s, count):
+    game_stop = 0
+    guessed = 0
+    print('Guess a random number')
+    print('Commands available: exit/(any number)/help')
+    while not game_stop:
+        print('Enter new command:')
+        s = str(input())
+        for i in s:
+            if i in alphabit:
+                if 'exit' == s:
+                    print('Exiting the game')
+                    game_stop = 1
+                    return 1
+                if 'help' == s:
+                    print('|-----------------------------------------------------|')
+                    print('|                Commands available                   |')
+                    print('|            help - for more information              |')
+                    print('|          exit - to stop playing the game            |')
+                    print('| (any number) - to start guessing the correct answer |')
+                    print('|-----------------------------------------------------|')
+                    break
+                else:
+                    print('Unknown command')
+                    break
+            else:
+                count = number(s, count, x)
+                guessed = 1
+                global avr
+                avr += count
+                break
+        if guessed:
+            print(f'You guessed correct in {count} attempts.')
+            return 0
+
+
+alphabit = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM!@#$%^&*()_-=+~`[]\|;:'"/?><,."
+
+s = ''
+avr = 0
+count = 0
+guessed = False
+stop = 0
+playing = 0
+played_so_far = 0
+while not count:
+    if playing:
+        print('Start playing: yes/no?')
+    if not playing:
+        print("Do you wish to start a new game?")
+        print('Commands available: yes/no/range/help')
+        x = random.randint(1, 1000)
+        playing = 1
+    if played_so_far != 0:
+        print(f'You have played {played_so_far} games so far.')
+    z = str(input())
+    if 'range' == z:
+        print('Input variable (recommended: 1)')
+        ran1 = int(input())
+        print('Input variable (recommended: 1000)')
+        ran2 = int(input())
+        x = random.randint(ran1, ran2)
+        print(f'Range set from {ran1} to {ran2}')
+
+    if 'help' == z:
+        print('|---------------------------------------------------------|')
+        print('|                Commands available                       |')
+        print('|            help - for more information                  |')
+        print('|           no - to stop playing the game                 |')
+        print('|             yes - to start playing                      |')
+        print('|  range - allows you to switch random number range       |')
+        print('|first var - left border \-_-/ second var - right border  |')
+        print('|---------------------------------------------------------|')
+    if 'yes' == z:
+        count = game(s, count)
+        played_so_far += 1
+        playing = 0
+    elif 'no' == z:
+        count = 1
+        print('Exiting the game')
+        break
+avr_rate = avr//played_so_far
+print(f'You have played {played_so_far} games in total')
+print(f'You usually guessed in {avr_rate} attempts')
