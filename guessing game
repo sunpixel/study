@@ -31,6 +31,7 @@ def number(x, y, z):
 def game(s, count):
     game_stop = 0
     guessed = 0
+    print('|---------------------------------------------------------|')
     print('Guess a random number')
     print('Commands available: exit/(any number)/help')
     while not game_stop:
@@ -73,11 +74,14 @@ guessed = False
 stop = 0
 playing = 0
 played_so_far = 0
+ran1 = 1
+ran2 =1000
 while not count:
     if playing:
         print('Start playing: yes/no?')
     if not playing:
         print("Do you wish to start a new game?")
+        print(f'Range set from {ran1} to {ran2}')
         print('Commands available: yes/no/range/help')
         x = random.randint(1, 1000)
         playing = 1
@@ -89,8 +93,8 @@ while not count:
         ran1 = int(input())
         print('Input variable (recommended: 1000)')
         ran2 = int(input())
+        
         x = random.randint(ran1, ran2)
-        print(f'Range set from {ran1} to {ran2}')
 
     if 'help' == z:
         print('|---------------------------------------------------------|')
